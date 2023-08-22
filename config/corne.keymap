@@ -1,0 +1,129 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include "./keypos_42keys.h"
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+/* Homerow mods */
+
+#define TAP_TERM_MS     200
+#define QUICK_TAP_MS    150
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // right hand
+#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
+
+/ {
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
+
+    behaviors {
+        hml: homerow_mods_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HML_MODS";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <TAP_TERM_MS>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            global-quick-tap;
+            hold-trigger-key-positions = <KEYS_R THUMBS>;
+            hold-trigger-on-release;
+            bindings =
+                <&kp>,
+                <&kp>;
+        };
+        hmr: homerow_mods_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HMR_MODS";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <TAP_TERM_MS>;
+            quick-tap-ms = <QUICK_TAP_MS>;
+            global-quick-tap;
+            hold-trigger-key-positions = <KEYS_L THUMBS>;
+            hold-trigger-on-release;
+            bindings =
+                <&kp>,
+                <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // -----------------------------------------------------------------------------------------------------------------------------------------
+            // |    TAB   |    Q     |    W      |    E     |      R     |    T    |   |    Y    |     U      |    I     |    O      |     P    | BKSP |
+            // | CTRL ESC |    CTRL A     |  LALT S   |  LGUI D  |  LSHIFT F  |    G    |   |    H    |  RSHIFT J  |  RGUI K  |  LALT L   |     CTRL ;    |  '   |
+            // | MINUS    |    Z     |    X      |    C     |      V     |    B    |   |    N    |     M      |    ,     |    .      |     /    |  _   | 
+            //                                   |  LGUI (    |    LALT {   | LWR SPC |   | RSE ENT |   LALT }    |   RGUI   )  |
+
+            label = "Base";
+            bindings = <
+                &kp TAB  &kp Q  &kp W                       &kp E                 &kp R        &kp T          &kp Y                  &kp U                        &kp I    &kp O     &kp P   &kp BSPC
+&mt LEFT_CONTROL ESCAPE  &kp A  &kp S                       &kp D                 &kp F        &kp G          &kp H                  &kp J                        &kp K    &kp L  &kp SEMI    &kp SQT
+              &kp LSHFT  &kp Z  &kp X                       &kp C                 &kp V        &kp B          &kp N                  &kp M                    &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                                       &hml LGUI LEFT_PARENTHESIS  &hml LALT LEFT_BRACE  &lt 1 SPACE    &lt 2 ENTER  &hmr LALT RIGHT_BRACE  &hmr RGUI RIGHT_PARENTHESIS
+            >;
+        };
+
+        lower_layer {
+            // --------------------------------------------------------------------------------
+            // |  TAB  |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
+            // | TILDE |  !  |  @  |  #  |  $  |  %  |   |  ^  |  *  |  *  |  -  |  +  | "|"  |
+            // | trans | none|  (  |  )  |  {  |  }  |   |  [  |  ]  |  =  |  _  |  \  | trans|
+            //                     |trans|trans|trans|   |trans|trans|trans|
+
+            label = "Lower";
+            bindings = <
+&kp GRAVE           &kp N1                &kp N2                 &kp N3          &kp N4           &kp N5              &kp N6             &kp N7        &kp N8          &kp N9         &kp N0        &kp BSPC
+&kp TILDE  &kp EXCLAMATION                &kp AT               &kp HASH      &kp DOLLAR      &kp PERCENT           &kp CARET      &kp AMPERSAND  &kp ASTERISK       &kp MINUS       &kp PLUS        &kp PIPE
+&kp MINUS            &none  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp LEFT_BRACKET  &kp RIGHT_BRACKET     &kp EQUAL  &kp UNDERSCORE  &kp BACKSLASH  &kp UNDERSCORE
+                                                                 &trans          &trans           &trans              &trans             &trans        &trans
+            >;
+        };
+
+        raise_layer {
+            // ---------------------------------------------------------------------------------------------------------------------------------------------------
+            // |  F1  |    F2    |    F3    |      F4       |      F5     |      F6      |   |     F7     |     F8     |    F9    |     F10     |  F11  |  F12   |
+            // | none |  C_PREV  |  C_NEXT  | K_VOLUME_DOWN | K_VOLUME_UP | K_PLAY_PAUSE |   | LEFT_ARROW | DOWN_ARROW | UP_ARROW | RIGHT_ARROW | trans | trans  |
+            // |trans | BT_SEL 0 | BT_SEL 1 |  BT_SEL 2     |  BT_SEL 3   |  BT_SEL 4    |   |    HOME    |    PG_DN   |   PG_UP  |     END     | trans | BT_CLR |
+            //                              |   trans       |    trans    |   trans      |   |    trans   |    trans   |   trans  |
+
+            label = "Raise";
+            bindings = <
+&kp F1          &kp F2        &kp F3             &kp F4           &kp F5            &kp F6            &kp F7          &kp F8        &kp F9          &kp F10  &kp F11     &kp F12
+&kp ESC  &kp LEFT_CONTROL  &kp LALT  &kp LGUI  &kp LSHFT   &none    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW    &none    &none
+&none             &none     &none     &none      &none   &none          &kp HOME       &kp PG_DN     &kp PG_UP          &kp END    &none    &none
+                                                 &trans           &trans            &trans            &trans          &trans        &trans
+            >;
+        };
+
+        tri_layer {
+            // ---------------------------------------------------------------------------------------------------------------------------------------------------
+            // |  F1  |    F2    |    F3    |      F4       |      F5     |      F6      |   |     F7     |     F8     |    F9    |     F10     |  F11  |  F12   |
+            // | none |  C_PREV  |  C_NEXT  | K_VOLUME_DOWN | K_VOLUME_UP | K_PLAY_PAUSE |   | LEFT_ARROW | DOWN_ARROW | UP_ARROW | RIGHT_ARROW | trans | trans  |
+            // |trans | BT_SEL 0 | BT_SEL 1 |  BT_SEL 2     |  BT_SEL 3   |  BT_SEL 4    |   |    HOME    |    PG_DN   |   PG_UP  |     END     | trans | BT_CLR |
+            //                              |   trans       |    trans    |   trans      |   |    trans   |    trans   |   trans  |
+
+            label = "Tri";
+            bindings = <
+&kp F1          &kp F2        &kp F3             &kp F4           &kp F5            &kp F6            &kp F7          &kp F8        &kp F9          &kp F10  &kp F11     &kp F12
+ &none  &kp C_PREVIOUS    &kp C_NEXT  &kp K_VOLUME_DOWN  &kp K_VOLUME_UP  &kp K_PLAY_PAUSE    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW    &none       &none
+ &none    &bt BT_SEL 0  &bt BT_SEL 1       &bt BT_SEL 2     &bt BT_SEL 3      &bt BT_SEL 4          &kp HOME       &kp PG_DN     &kp PG_UP          &kp END    &none  &bt BT_CLR
+                                                 &trans           &trans            &trans            &trans          &trans        &trans
+            >;
+        };
+    };
+};
