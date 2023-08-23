@@ -1,11 +1,11 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
+    - name: keb-main
+      url-base: https://github.com/KyleBrandon
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: main
+      remote: keb-main
+      revision: kyle-main
       import: app/west.yml
   self:
     path: config
