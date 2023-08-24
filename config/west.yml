@@ -1,11 +1,11 @@
 manifest:
   remotes:
-    - name: keb-main
+    - name: keb-corne
       url-base: https://github.com/KyleBrandon
   projects:
     - name: zmk
-      remote: keb-main
-      revision: kyle-main
+      remote: keb-corne
+      revision: kyle-corne
       import: app/west.yml
   self:
     path: config
