@@ -10,8 +10,11 @@
 #include "../../zmk-nodefree-config/keypos_def/keypos_36keys.h"
 #include "../../zmk-nodefree-config/helper.h"
 
+/* Bluetooth */
+#define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+
 /* Layers */
-#define BASE 0
+#define BASE    0
 #define LOWER   1
 #define RAISE   2
 #define TRI     3
@@ -44,52 +47,62 @@ ZMK_BEHAVIOR(hmr, hold_tap,
     hold-trigger-on-release;
 )
 
+#define _CTRL_ESC_      &mt LCTRL ESC
+
+#define _THUMB_LH0_     &lt 1 SPACE
+#define _THUMB_LH1_     &hml LALT LBRC
+#define _THUMB_LH2_     &hml LGUI LPAR
+
+#define _THUMB_RH0_     &lt 2 ENTER
+#define _THUMB_RH1_     &hmr LALT RBRC
+#define _THUMB_RH2_     &hmr RGUI RPAR
+
 ZMK_CONDITIONAL_LAYER(LOWER RAISE, TRI)
 
 ZMK_LAYER(base,
-    // -------------------------------------------------------------------------------------------------------------------------------
-    // |    TAB    |    Q    |    W    |    E    |    R    |    T    |   |    Y    |    U    |    I    |    O    |    P    |  BKSP   |
-    // |    ESC    |    A    |    S    |    D    |    F    |    G    |   |    H    |    J    |    K    |    L    |    ;    |    '    |
-    // |   MINUS   |    Z    |    X    |    C    |    V    |    B    |   |    N    |    M    |    ,    |    .    |    /    |    _    | 
-    //                                 | LGUI+(  | LALT+{  | LWR+SPC |   | RSE+ENT | LALT+}  | RGUI+)  |
-    &kp TAB         &kp Q           &kp W           &kp E           &kp R           &kp T           &kp Y           &kp U           &kp I           &kp O       &kp P       &kp BSPC
-    &mt LCTRL ESC   &kp A           &kp S           &kp D           &kp F           &kp G           &kp H           &kp J           &kp K           &kp L       &kp SEMI    &kp SQT
-    &kp LSHFT       &kp Z           &kp X           &kp C           &kp V           &kp B           &kp N           &kp M           &kp COMMA       &kp DOT     &kp FSLH    &kp RSHFT
-                                                    &hml LGUI LPAR  &hml LALT LBRC  &lt 1 SPACE     &lt 2 ENTER     &hmr LALT RBRC  &hmr RGUI RPAR
+//╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮ ╭──────╮ ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+    &kp TAB        &kp Q          &kp W          &kp E          &kp R          &kp T                     &kp Y          &kp U          &kp I          &kp O          &kp P          &kp BSPC
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    _CTRL_ESC_     &kp A          &kp S          &kp D          &kp F          &kp G                     &kp H          &kp J          &kp K          &kp L          &kp SEMI       &kp SQT
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &kp LSHFT      &kp Z          &kp X          &kp C          &kp V          &kp B                     &kp N          &kp M          &kp COMMA      &kp DOT        &kp FSLH       &kp RSHFT
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+                                                 _THUMB_LH2_    _THUMB_LH1_    _THUMB_LH0_               _THUMB_RH0_    _THUMB_RH1_    _THUMB_RH2_
+//                                             ╰──────────────┴──────────────┴──────────────╯ ╰──────╯ ╰──────────────┴──────────────┴──────────────╯
 )
 
 ZMK_LAYER(lower,
-    // --------------------------------------------------------------------------------
-    // |  `    |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-    // | TILDE |  !  |  @  |  #  |  $  |  %  |   |  ^  |  *  |  *  |  -  |  +  | "|"  |
-    // | MINUS | none|  (  |  )  |  {  |  }  |   |  [  |  ]  |  =  |  _  |  \  | UNDER|
-    //                     |trans|trans|trans|   |trans|trans|trans|
-    &kp GRAVE       &kp N1          &kp N2          &kp N3          &kp N4          &kp N5          &kp N6          &kp N7          &kp N8          &kp N9      &kp N0      &kp BSPC
-    &kp TILDE       &kp EXCL        &kp AT          &kp HASH        &kp DLLR        &kp PRCNT       &kp CARET       &kp AMPS        &kp STAR        &kp MINUS   &kp PLUS    &kp PIPE
-    &kp MINUS       &none           &kp LPAR        &kp RPAR        &kp LBRC        &kp RBRC        &kp LBKT        &kp RBKT        &kp EQUAL       &kp UNDER   &kp BSLH    &kp UNDER
-                                                    &trans          &trans          &trans          &trans          &trans          &trans
+//╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮ ╭──────╮ ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+    &kp GRAVE      &kp N1         &kp N2         &kp N3         &kp N4         &kp N5                    &kp N6         &kp N7         &kp N8         &kp N9         &kp N0         &kp BSPC
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &kp TILDE      &kp EXCL       &kp AT         &kp HASH       &kp DLLR       &kp PRCNT                 &kp CARET      &kp AMPS       &kp STAR       &kp MINUS      &kp PLUS       &kp PIPE
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &kp MINUS      &none          &kp LPAR       &kp RPAR       &kp LBRC       &kp RBRC                  &kp LBKT       &kp RBKT       &kp EQUAL      &kp UNDER      &kp BSLH       &kp UNDER
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+                                                 &trans         &trans         &trans                    &trans         &trans         &trans
+//                                             ╰──────────────┴──────────────┴──────────────╯ ╰──────╯ ╰──────────────┴──────────────┴──────────────╯
 )
 
 ZMK_LAYER(raise,
-    // ---------------------------------------------------------------------------------------------------------------------------------------------------
-    // |  F1  |    F2    |    F3    |      F4       |      F5     |      F6      |   |     F7     |     F8     |    F9    |     F10     |  F11  |  F12   |
-    // |  ESC |   LCTRL  |    LALT  |     LGUI      |     LSHFT   |     none     |   |    LEFT    |    DOWN    |    UP    |     RIGHT   |  none |  none  |
-    // | none |   none   |   none   |     none      |     none    |     none     |   |    HOME    |    PG_DN   |   PG_UP  |     END     |  none |  none  |
-    //                              |   trans       |    trans    |   trans      |   |    trans   |    trans   |   trans  |
-    &kp F1          &kp F2          &kp F3          &kp F4          &kp F5          &kp F6          &kp F7          &kp F8          &kp F9          &kp F10     &kp F11     &kp F12
-    &kp ESC         &kp LCTRL       &kp LALT        &kp LGUI        &kp LSHFT       &none           &kp LEFT        &kp DOWN        &kp UP          &kp RIGHT   &none       &none
-    &none           &none           &none           &none           &none           &none           &kp HOME        &kp PG_DN       &kp PG_UP       &kp END     &none       &none
-                                                    &trans          &trans          &trans          &trans          &trans          &trans
+//╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮ ╭──────╮ ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+    &kp F1         &kp F2         &kp F3         &kp F4         &kp F5         &kp F6                    &kp F7         &kp F8         &kp F9         &kp F10        &kp F11         &kp F12
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    _CTRL_ESC_     &kp LCTRL      &kp LALT       &kp LGUI       &kp LSHFT      &none                     &kp LEFT       &kp DOWN       &kp UP         &kp RIGHT      &none           &none
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &none          &none          &none          &none          &none          &none                     &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &none           &none
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+                                                 &trans         &trans         &trans                    &trans         &trans         &trans
+//                                             ╰──────────────┴──────────────┴──────────────╯ ╰──────╯ ╰──────────────┴──────────────┴──────────────╯
 )
 
 ZMK_LAYER(tri,
-    // ---------------------------------------------------------------------------------------------------------------------------------------------------
-    // |  F1  |    F2    |    F3    |      F4       |      F5     |      F6      |   |     F7     |     F8     |    F9    |     F10     |  F11  |  F12   |
-    // | none |  C_PREV  |  C_NEXT  | K_VOLUME_DOWN | K_VOLUME_UP | K_PLAY_PAUSE |   | LEFT_ARROW | DOWN_ARROW | UP_ARROW | RIGHT_ARROW | trans | trans  |
-    // |trans | BT_SEL 0 | BT_SEL 1 |  BT_SEL 2     |  BT_SEL 3   |  BT_SEL 4    |   |    HOME    |    PG_DN   |   PG_UP  |     END     | trans | BT_CLR |
-    //                              |   trans       |    trans    |   trans      |   |    trans   |    trans   |   trans  |
-    &kp F1          &kp F2          &kp F3          &kp F4          &kp F5          &kp F6          &kp F7          &kp F8          &kp F9          &kp F10     &kp F11     &kp F12
-    &none           &kp C_PREV      &kp C_NEXT      &kp K_VOL_DN    &kp K_VOL_UP    &kp K_PP        &kp LEFT        &kp DOWN        &kp UP          &kp RIGHT   &none       &none
-    &none           &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4    &kp HOME        &kp PG_DN       &kp PG_UP       &kp END     &none       &bt BT_CLR
-                                                    &trans          &trans          &trans          &trans          &trans          &trans
+//╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮ ╭──────╮ ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+    &kp F1         &kp F2         &kp F3         &kp F4         &kp F5         &kp F6                    &kp F7         &kp F8         &kp F9         &kp F10        &kp F11        &kp F12
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &none          &kp C_PREV     &kp C_NEXT     &kp K_VOL_DN   &kp K_VOL_UP   &kp K_PP                  &kp LEFT       &kp DOWN       &kp UP         &kp RIGHT      &none          &none
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    &none                                   _BT_SEL_KEYS_                                                &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &none          &bt BT_CLR
+//├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+                                                 &trans         &trans         &trans                    &trans         &trans         &trans
+//                                             ╰──────────────┴──────────────┴──────────────╯ ╰──────╯ ╰──────────────┴──────────────┴──────────────╯
 )
