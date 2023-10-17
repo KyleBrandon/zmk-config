@@ -61,10 +61,10 @@ ZMK_BEHAVIOR(hmr, hold_tap,
 #define _THUMB_RH1_     &hmr LALT RBRC
 #define _THUMB_RH2_     &hmr RGUI RPAR
 
-#define _MAC_LOCK_      RG(RC(KC_Q))
-#define _SCRN_CAP_      RG(RS(KC_4))
-#define _ZOOM_IN_       RG(RS(KC_EQL))
-#define _ZOOM_OUT_      RG(KC_MINS)
+#define _MAC_LOCK_      &kp RG(RC(KC_Q))
+#define _SCRN_CAP_      &kp RG(RS(KC_4))
+#define _ZOOM_IN_       &kp RG(RS(KC_EQL))
+#define _ZOOM_OUT_      &kp RG(KC_MINS)
 
 ZMK_CONDITIONAL_LAYER(LOWER RAISE, TRI)
 
@@ -106,11 +106,11 @@ ZMK_LAYER(raise,
 
 ZMK_LAYER(tri,
 //╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮ ╭──────╮ ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-    &none          &none          &none          &none          &none          &none                     &K_PREV        &K_NEXT        &none          &none          &none          &bt BT_CLR
+    &none          &none          &none          &none          &none          &none                     &kp C_PREV     &kp C_NEXT     &none          &none          &none          &bt BT_CLR
 //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-    &none          &none          &none          &none          &none          &none                     &K_VOL_DN      &K_VOL_UP      &none          &none          _ZOOM_IN_      _SCRN_CAP_
+    &none          &none          &none          &none          &none          &none                     &kp C_VOL_DN   &kp C_VOL_UP   &none          &none          _ZOOM_IN_      _SCRN_CAP_
 //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-    &none                                   _BT_SEL_KEYS_                                                &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        _ZOOM_OUT_     _MAC_LOCK_
+    &none                                   _BT_SEL_KEYS_                                                &kp C_PLAY     &none          &none          &none          _ZOOM_OUT_     _MAC_LOCK_
 //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤ ├──────┤ ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
                                                  &trans         &trans         &trans                    &trans         &trans         &trans
 //                                             ╰──────────────┴──────────────┴──────────────╯ ╰──────╯ ╰──────────────┴──────────────┴──────────────╯
