@@ -64,7 +64,7 @@ ZMK_BEHAVIOR(hmr, hold_tap,
 #define _MAC_LOCK_      &kp RG(RC(Q))
 #define _SCRN_CAP_      &kp RG(RS(N4))
 #define _ZOOM_IN_       &kp RG(RS(EQUAL))
-#define _ZOOM_OUT_      &kp RG(KC_MINUS)
+#define _ZOOM_OUT_      &kp RG(MINUS)
 
 ZMK_CONDITIONAL_LAYER(LOWER RAISE, TRI)
 
