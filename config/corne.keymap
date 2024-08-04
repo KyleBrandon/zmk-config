@@ -20,6 +20,7 @@
 #define TRI     3
 
 /* Homerow mods */
+/ {
 
 #define TAP_TERM_MS             270
 #define QUICK_TAP_MS            300
@@ -104,7 +105,7 @@ behaviors {
         bindings = <&kp>, <&kp>;
 
         hold-trigger-on-release;
-    };
+    };    
 };
 
 #define _CTRL_ESC_      &mt LCTRL ESC
@@ -131,6 +132,7 @@ behaviors {
 #define _SCRN_CAP_      &kp RG(RS(N4))
 #define _ZOOM_IN_       &kp RG(RS(EQUAL))
 #define _ZOOM_OUT_      &kp RG(MINUS)
+};
 
 ZMK_CONDITIONAL_LAYER(LOWER RAISE, TRI)
 
