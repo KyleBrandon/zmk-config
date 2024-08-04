@@ -37,7 +37,7 @@ ZMK_BEHAVIOR(hml, hold_tap,
     flavor = "tap-preferred";
     tapping-term-ms = <TAP_TERM_MS>;
     quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <PRIOR_IDLE_MS>
+    require-prior-idle-ms = <PRIOR_IDLE_MS>;
     hold-trigger-key-positions = <KEYS_R THUMBS>;
     hold-trigger-on-release;
     #binding-cells = <2>;
@@ -48,7 +48,7 @@ ZMK_BEHAVIOR(hmli, hold_tap,
     flavor = "tap-preferred";
     tapping-term-ms = <INDEX_TAP_TERM_MS>;
     quick-tap-ms = <INDEX_QUICK_TAP_MS>;
-    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>
+    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>;
     hold-trigger-key-positions = <KEYS_R THUMBS>;
     hold-trigger-on-release;
     #binding-cells = <2>;
@@ -59,7 +59,7 @@ ZMK_BEHAVIOR(hmr, hold_tap,
     flavor = "tap-preferred";
     tapping-term-ms = <TAP_TERM_MS>;
     quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <PRIOR_IDLE_MS>
+    require-prior-idle-ms = <PRIOR_IDLE_MS>;
     hold-trigger-key-positions = <KEYS_L THUMBS>;
     hold-trigger-on-release;
     #binding-cells = <2>;
@@ -70,7 +70,7 @@ ZMK_BEHAVIOR(hmri, hold_tap,
     flavor = "tap-preferred";
     tapping-term-ms = <INDEX_TAP_TERM_MS>;
     quick-tap-ms = <INDEX_QUICK_TAP_MS>;
-    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>
+    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>;
     hold-trigger-key-positions = <KEYS_L THUMBS>;
     hold-trigger-on-release;
     #binding-cells = <2>;
