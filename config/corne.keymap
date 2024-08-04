@@ -23,59 +23,89 @@
 
 #define TAP_TERM_MS             270
 #define QUICK_TAP_MS            300
-#define PRIOR_IDLE_MS           250
+#define REQUIRE_PRIOR_IDLE_MS   250
 
-#define INDEX_TAP_TERM_MS       170
-#define INDEX_QUICK_TAP_MS      300
-#define INDEX_PRIOR_IDLE_MS     150
+#define INDEX_TAP_TERM_MS               170
+#define INDEX_QUICK_TAP_MS              300
+#define INDEX_REQUIRE_PRIOR_IDLE_MS     150
 
-#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
-#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // right hand
+#define KEYS_LEFT LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
+#define KEYS_RIGHT RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // right hand
 #define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
 
-ZMK_BEHAVIOR(hml, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <TAP_TERM_MS>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <PRIOR_IDLE_MS>;
-    hold-trigger-key-positions = <KEYS_R THUMBS>;
-    hold-trigger-on-release;
-    #binding-cells = <2>;
-    bindings = <&kp>, <&kp>;
-)
+behaviors {
+    // For the "layer" key, it'd nice to be able to use it as either a shift or a toggle.
+    // Configure it as a tap dance, so the first tap (or hold) is a &mo and the second tap is a &to
 
-ZMK_BEHAVIOR(hmli, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <INDEX_TAP_TERM_MS>;
-    quick-tap-ms = <INDEX_QUICK_TAP_MS>;
-    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>;
-    hold-trigger-key-positions = <KEYS_R THUMBS>;
-    hold-trigger-on-release;
-    #binding-cells = <2>;
-    bindings = <&kp>, <&kp>;
-)
+    hml: hold_tap_left {
+        compatible = "zmk,behavior-hold-tap";
+        label = "HRM_HOLD_TAP_LEFT";
+        flavor = "tap-preferred";
+        tapping-term-ms = <TAP_TERM_MS>;
+        quick-tap-ms = <QUICK_TAP_MS>;
+        require-prior-idle-ms = <REQUIRE_PRIOR_IDLE_MS>;
+        #binding-cells = <2>;
+        bindings = <&kp>, <&kp>;
 
-ZMK_BEHAVIOR(hmr, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <TAP_TERM_MS>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    require-prior-idle-ms = <PRIOR_IDLE_MS>;
-    hold-trigger-key-positions = <KEYS_L THUMBS>;
-    hold-trigger-on-release;
-    #binding-cells = <2>;
-    bindings = <&kp>, <&kp>;
-)
+        hold-trigger-key-positions = <KEYS_RIGHT THUMBS>;
+        hold-trigger-on-release;
+    };
 
-ZMK_BEHAVIOR(hmri, hold_tap,
-    flavor = "tap-preferred";
-    tapping-term-ms = <INDEX_TAP_TERM_MS>;
-    quick-tap-ms = <INDEX_QUICK_TAP_MS>;
-    require-prior-idle-ms = <INDEX_PRIOR_IDLE_MS>;
-    hold-trigger-key-positions = <KEYS_L THUMBS>;
-    hold-trigger-on-release;
-    #binding-cells = <2>;
-    bindings = <&kp>, <&kp>;
-)
+    hmli: hold_tap_left_index {
+        compatible = "zmk,behavior-hold-tap";
+        label = "HRM_HOLD_TAP_LEFT_INDEX";
+        flavor = "tap-preferred";
+        tapping-term-ms = <INDEX_TAP_TERM_MS>;
+        quick-tap-ms = <INDEX_QUICK_TAP_MS>;
+        require-prior-idle-ms = <INDEX_REQUIRE_PRIOR_IDLE_MS>;
+        #binding-cells = <2>;
+        bindings = <&kp>, <&kp>;
+
+        hold-trigger-key-positions = <KEYS_RIGHT THUMBS>;
+        hold-trigger-on-release;
+    };
+
+    hmr: hold_tap_right {
+        compatible = "zmk,behavior-hold-tap";
+        label = "HRM_HOLD_TAP_RIGHT";
+        flavor = "tap-preferred";
+        tapping-term-ms = <TAP_TERM_MS>;
+        quick-tap-ms = <QUICK_TAP_MS>;
+        require-prior-idle-ms = <REQUIRE_PRIOR_IDLE_MS>;
+        #binding-cells = <2>;
+        bindings = <&kp>, <&kp>;
+
+        hold-trigger-key-positions = <KEYS_LEFT THUMBS>;
+        hold-trigger-on-release;
+    };
+
+    hmri: hold_tap_right_index {
+        compatible = "zmk,behavior-hold-tap";
+        label = "HRM_HOLD_TAP_RIGHT_INDEX";
+        flavor = "tap-preferred";
+        tapping-term-ms = <INDEX_TAP_TERM_MS>;
+        quick-tap-ms = <INDEX_QUICK_TAP_MS>;
+        require-prior-idle-ms = <INDEX_REQUIRE_PRIOR_IDLE_MS>;
+        #binding-cells = <2>;
+        bindings = <&kp>, <&kp>;
+
+        hold-trigger-key-positions = <KEYS_LEFT THUMBS>;
+        hold-trigger-on-release;
+    };
+
+    qt: quick_tap {
+        compatible = "zmk,behavior-hold-tap";
+        label = "QUICK_TAP";
+        flavor = "balanced";
+        tapping-term-ms = <200>;
+        quick-tap-ms = <175>;
+        require-prior-idle-ms = <150>;
+        #binding-cells = <2>;
+        bindings = <&kp>, <&kp>;
+
+        hold-trigger-on-release;
+    };
+};
 
 #define _CTRL_ESC_      &mt LCTRL ESC
 #define _HOME_A_        &hml LCTRL A
